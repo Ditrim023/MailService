@@ -39,10 +39,10 @@ public class MailDAOImpl implements MailDAO {
     private Mail extractMail(ResultSet rs) throws SQLException {
         Mail mail = new Mail();
         mail.setId(rs.getInt("MAIL_ID"));
-        mail.setFromWho("TO_WHO");
-        mail.setToWho("FROM_WHO");
-        mail.setTheme("THEME");
-        mail.setText("TEXT");
+        mail.setFromWho(rs.getString("TO_WHO"));
+        mail.setToWho(rs.getString("FROM_WHO"));
+        mail.setTheme(rs.getString("THEME"));
+        mail.setText(rs.getString("TEXT"));
         return mail;
     }
 

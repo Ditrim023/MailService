@@ -5,6 +5,7 @@ CREATE TABLE mail_user
     user_password VARCHAR(255) NOT NULL
 );
 
+DROP table Mail;
 CREATE TABLE mail
 (
     mail_id  SERIAL PRIMARY KEY,
@@ -16,5 +17,9 @@ CREATE TABLE mail
 
 
 
-insert into mail (to_who, from_who, theme, text) values ('ToTest@emaple','fromTest@examaple','test','dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd');
-insert into mail (to_who, from_who, theme, text) values ('ToTest@emaple','fromTest@examaple','test','dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd');
+insert into mail (to_who, from_who, theme, text)
+values ('ToTest@emaple', 'fromTest@examaple', 'test',
+        'dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd');
+insert into mail (to_who, from_who, theme, text)
+values ('ToTest@emaple', 'fromTest@examaple', 'test',
+        'dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd');
