@@ -3,7 +3,6 @@ package com.example.mail.dao.impl;
 import com.example.mail.dao.ConnectionToDB;
 import com.example.mail.dao.MailDAO;
 import com.example.mail.entity.Mail;
-import com.example.mail.exeption.QueryNotExecuteException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,12 +16,11 @@ public class MailDAOImpl implements MailDAO {
 
     @Override
     public List<Mail> getAllMail() {
-             List<Mail> mailList = new ArrayList<>();
+        List<Mail> mailList = new ArrayList<>();
         Connection connection = ConnectionToDB.getDBConnection();
         try {
             PreparedStatement ps = connection.prepareStatement(GET_ALL_MAIL);
             ResultSet rs = ps.executeQuery();
-            System.out.println(rs);
             while (rs.next()) {
                 mailList.add((extractMail(rs)));
             }
@@ -32,9 +30,9 @@ public class MailDAOImpl implements MailDAO {
         } catch (SQLException e) {
             e.getMessage();
         }
-        System.out.println(mailList.size());
         return mailList;
     }
+
 
     private Mail extractMail(ResultSet rs) throws SQLException {
         Mail mail = new Mail();
@@ -45,5 +43,4 @@ public class MailDAOImpl implements MailDAO {
         mail.setText(rs.getString("TEXT"));
         return mail;
     }
-
 }
