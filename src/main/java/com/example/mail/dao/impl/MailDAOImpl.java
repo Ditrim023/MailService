@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MailDAOImpl implements MailDAO {
-    private static final String GET_ALL_MAIL = "SELECT * FROM MAIL limit 20";
+    private static final String GET_ALL_MAIL = "SELECT * FROM MAIL ORDER BY DATE_CREATE DESC limit 20";
 
     @Override
     public List<Mail> getAllMail() {
