@@ -1,19 +1,17 @@
 package com.example.mail.entity;
 
-import java.util.Date;
-
 public class Mail {
     private int id;
     private String toWho;
     private String fromWho;
     private String theme;
     private String text;
-    private Date dateCreate;
+    private String dateCreate;
 
     public Mail() {
     }
 
-    public Mail(String toWho, String fromWho, String theme, String text, Date dateCreate) {
+    public Mail(String toWho, String fromWho, String theme, String text, String dateCreate) {
         this.toWho = toWho;
         this.fromWho = fromWho;
         this.theme = theme;
@@ -61,12 +59,11 @@ public class Mail {
         this.text = text;
     }
 
-    public Date getDateCreate() {
+    public String getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Date dateCreate) {
+    public void setDateCreate(String dateCreate) {
         this.dateCreate = dateCreate;
     }
-
 }

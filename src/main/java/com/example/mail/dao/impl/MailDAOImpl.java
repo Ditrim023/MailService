@@ -10,11 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MailDAOImpl implements MailDAO {
-    private static final String GET_ALL_MAIL = "SELECT * FROM MAIL";
+    private static final String GET_ALL_MAIL = "SELECT * FROM MAIL limit 20";
 
     @Override
     public List<Mail> getAllMail() {
@@ -43,7 +42,8 @@ public class MailDAOImpl implements MailDAO {
         mail.setToWho(rs.getString("FROM_WHO"));
         mail.setTheme(rs.getString("THEME"));
         mail.setText(rs.getString("TEXT"));
-        mail.setDateCreate(rs.getTimestamp("DATE_CREATE"));
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        mail.setDateCreate(formatter.format(rs.getTimestamp("DATE_CREATE")));
         return mail;
     }
 }
