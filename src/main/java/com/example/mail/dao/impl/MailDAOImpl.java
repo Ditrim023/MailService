@@ -8,7 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MailDAOImpl implements MailDAO {
@@ -41,6 +43,7 @@ public class MailDAOImpl implements MailDAO {
         mail.setToWho(rs.getString("FROM_WHO"));
         mail.setTheme(rs.getString("THEME"));
         mail.setText(rs.getString("TEXT"));
+        mail.setDateCreate(rs.getTimestamp("DATE_CREATE"));
         return mail;
     }
 }

@@ -20,92 +20,13 @@ public class DDLService {
                     "    to_who   VARCHAR(255) NOT NULL,\n" +
                     "    from_who VARCHAR(255) NOT NULL,\n" +
                     "    theme    VARCHAR(255) NOT NULL,\n" +
+                    "    date_create   TIMESTAMP,\n" +
                     "    text     text         NOT NULL\n" +
                     ");";
-    private static final String INSERT_LETTERS = "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testSendIN',\n" +
-            "        'test1');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testSendIN',\n" +
-            "        'test1');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testSendIN',\n" +
-            "        'test1');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ivan', 'petrov', 'Разметка',\n" +
-            "        'test1');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testSendIN',\n" +
-            "        'test1');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testSendIN',\n" +
-            "        'test1');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ivan', 'petrov', 'Разметка',\n" +
-            "        'test1');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testSendIN',\n" +
-            "        'test1');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testSendIN',\n" +
-            "        'test1');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testSendIN',\n" +
-            "        'test1');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ivan', 'petrov', 'Разметка',\n" +
-            "        'test1');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testSendIN',\n" +
-            "        'test1');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testSendIN',\n" +
-            "        'test1');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ivan', 'petrov', 'Разметка',\n" +
-            "        'test1');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testReceiveOut',\n" +
-            "        'test');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testReceiveOut',\n" +
-            "        'test');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testReceiveOut',\n" +
-            "        'test');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testReceiveOut',\n" +
-            "        'test');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testReceiveOut',\n" +
-            "        'test');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testReceiveOut',\n" +
-            "        'test');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testReceiveOut',\n" +
-            "        'test');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testReceiveOut',\n" +
-            "        'test');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testReceiveOut',\n" +
-            "        'test');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testReceiveOut',\n" +
-            "        'test');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testReceiveOut',\n" +
-            "        'test');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testReceiveOut',\n" +
-            "        'test');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testReceiveOut',\n" +
-            "        'test');\n" +
-            "insert into mail (to_who, from_who, theme, text)\n" +
-            "values ('ToTest@emaple', 'fromTest@examaple', 'testReceiveOut',\n" +
-            "        'test');";
+   private static final String INSERT_MAILS = "insert into mail (to_who, from_who, theme, date_create,text) values ('ToTest@emaple', 'fromTest@examaple', 'testSendIN','2020-11-23 09:30:00','testWithtime');\n" +
+           "insert into mail (to_who, from_who, theme, date_create,text) values ('ToTest@emaple', 'fromTest@examaple', 'testSendIN','2020-11-23 09:30:00','testWithtime');\n" +
+           "insert into mail (to_who, from_who, theme, date_create,text) values ('ToTest@emaple', 'fromTest@examaple', 'testSendIN','2020-11-23 09:30:00','testWithtime');\n" +
+           "insert into mail (to_who, from_who, theme, date_create,text) values ('ToTest@emaple', 'fromTest@examaple', 'testSendIN','2020-11-23 09:30:00','testWithtime');";
 
     private static final String INSERT_USERS = "insert into mail_user (USER_NAME, USER_PASSWORD)\n" +
             "values ('sidr.ivanov', '123456');\n" +
@@ -125,7 +46,7 @@ public class DDLService {
     public void fillMailTable() throws SQLException {
         Connection connection = ConnectionToDB.getDBConnection();
         Statement st = connection.createStatement();
-        st.execute(INSERT_LETTERS);
+        st.execute(INSERT_MAILS);
         st.close();
         connection.close();
     }

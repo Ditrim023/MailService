@@ -1,8 +1,8 @@
 .login-form {
-    width: 340px;
-    margin: 150px auto;
+    width: 970px;
     font-size: 15px;
 }
+
 
 .login-form form {
     margin-bottom: 15px;
@@ -15,17 +15,26 @@
     margin: 0 0 15px;
 }
 
+#input-data {
+    width: 300px;
+}
+
 .btn {
     font-size: 15px;
     font-weight: bold;
 }
 
-#main {
-    margin: 0 auto;
+#header {
+    /*border:solid;*/
+    /*border-radius: 16px;*/
+    margin: 20px 400px;
+    width: 1000px;
 }
 
-#header {
-    float: left;
-    margin: 50px 350px;
-    width: 1200px;
+#buttons {
+    margin: 20px 400px;
+}
+
+#person {
+    padding-left: 300px;
 }
