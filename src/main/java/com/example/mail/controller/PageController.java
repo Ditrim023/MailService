@@ -1,14 +1,14 @@
 package com.example.mail.controller;
 
-import com.example.mail.dao.MailDAO;
-import com.example.mail.dao.impl.MailDAOImpl;
+import com.example.mail.service.MailService;
+import com.example.mail.service.impl.MailServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PageController {
-    private MailDAO mailDAO = new MailDAOImpl();
+    private MailService mailService = new MailServiceImpl();
 
     @GetMapping("/login")
     public String login() {
@@ -17,7 +17,8 @@ public class PageController {
 
     @GetMapping("/")
     public String mails(final Model model) {
-        model.addAttribute("mails", mailDAO.getAllMail());
+        model.addAttribute("mails", mailService.getAllMail());
         return "mails";
     }
+
 }

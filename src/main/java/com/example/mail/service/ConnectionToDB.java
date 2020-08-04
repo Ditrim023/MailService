@@ -1,9 +1,10 @@
-package com.example.mail.dao;
+package com.example.mail.service;
 
 
 import com.example.mail.exeption.ConnectionNotCreatedException;
 import com.example.mail.exeption.PropertiesFileException;
 import com.example.mail.utils.FileReader;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +13,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-
+@Configuration
 public class ConnectionToDB {
     private static final String DB_FILE = "application.properties";
     private static final String DB_DRIVER = "db.driver";

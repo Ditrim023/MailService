@@ -1,8 +1,9 @@
-package com.example.mail.dao.impl;
+package com.example.mail.service.impl;
 
-import com.example.mail.dao.ConnectionToDB;
-import com.example.mail.dao.MailDAO;
+import com.example.mail.service.ConnectionToDB;
+import com.example.mail.service.MailService;
 import com.example.mail.entity.Mail;
+import com.example.mail.exeption.QueryNotExecuteException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,8 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MailDAOImpl implements MailDAO {
+public class MailServiceImpl implements MailService {
     private static final String GET_ALL_MAIL = "SELECT * FROM MAIL ORDER BY DATE_CREATE DESC limit 20";
+    private static final String DELETE_MAIL_BY_ID = "DELETE FROM MAIL where MAIL_ID = ?";
 
     @Override
     public List<Mail> getAllMail() {
@@ -32,6 +34,20 @@ public class MailDAOImpl implements MailDAO {
             e.getMessage();
         }
         return mailList;
+    }
+
+    @Override
+    public void deleteMail(String mailId) {
+        Connection connection = ConnectionToDB.getDBConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(DELETE_MAIL_BY_ID);
+            ps.setInt(1, Integer.parseInt(mailId));
+            ps.executeUpdate();
+            ps.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new QueryNotExecuteException();
+        }
     }
 
 

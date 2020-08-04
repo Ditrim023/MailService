@@ -1,5 +1,6 @@
 .login-form {
-    width: 970px;
+    margin: 220px auto;
+    width: 350px;
     font-size: 15px;
 }
 
@@ -45,7 +46,13 @@
     border-top: 1px solid #e8e9eb;
     margin-bottom: 5px;
 }
-.text, .checkbox{
+
+.text, .checkbox {
     flex: 1;
     padding-right: 12px;
 }
+
+#mail-who,#mail-theme,#mail-text{
+    margin-bottom: 10px;
+}
+
