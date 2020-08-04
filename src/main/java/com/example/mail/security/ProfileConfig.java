@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -24,8 +25,8 @@ public class ProfileConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void registerAuthenticationManager(AuthenticationManagerBuilder managerBuilder) throws Exception {
         managerBuilder
-                .userDetailsService(userDetailsService);
-//                .passwordEncoder(getPasswordEncoder());
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(getPasswordEncoder());
     }
 
     @Bean
@@ -37,22 +38,28 @@ public class ProfileConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/").access("hasRole('ROLE_USER')")
-//                .and()
-//                .formLogin().loginPage("/login")
-//                .usernameParameter("login").passwordParameter("password")
-//                .and()
-//                .logout().logoutSuccessUrl("/login?logout");
         http.
                 authorizeRequests()
-                .antMatchers("/").hasAnyRole()
-                .antMatchers("/api/users").permitAll()
-                .and().formLogin().loginPage("/login").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/mails","/users").hasRole("USER")
+                .and().exceptionHandling().accessDeniedPage("/403")
+                .and().formLogin().loginPage("/login").failureUrl("/403").permitAll()
                 .loginProcessingUrl("/j_spring_security_check")
                 .usernameParameter("login")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/");
+                .defaultSuccessUrl("/mails")
+                .and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login");
+//        http.
+//                authorizeRequests()
+//                .antMatchers("/").hasAnyRole()
+//                .antMatchers("/api/users").permitAll()
+//                .and().formLogin().loginPage("/login").permitAll()
+//                .loginProcessingUrl("/j_spring_security_check")
+//                .usernameParameter("login")
+//                .passwordParameter("password")
+//                .defaultSuccessUrl("/");
     }
 
     @Override

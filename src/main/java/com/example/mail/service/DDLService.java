@@ -84,13 +84,13 @@ public class DDLService {
         Statement st = connection.createStatement();
         PreparedStatement ps = connection.prepareStatement(INSERT_USERS);
         ps.setString(1, "admin.antonov");
-        ps.setString(2, PASSWORD);
+        ps.setString(2, new BCryptPasswordEncoder().encode(PASSWORD));
         ps.executeUpdate();
         ps.setString(1, "Ivan.Sidoriv");
-        ps.setString(2, PASSWORD);
+        ps.setString(2, new BCryptPasswordEncoder().encode(PASSWORD));
         ps.execute();
         ps.setString(1, "sidr.ivanov");
-        ps.setString(2, PASSWORD);
+        ps.setString(2, new BCryptPasswordEncoder().encode(PASSWORD));
         ps.execute();
         ps.close();
         st.close();
