@@ -2,6 +2,7 @@ package com.example.mail.controller;
 
 import com.example.mail.service.MailService;
 import com.example.mail.service.impl.MailServiceImpl;
+import com.example.mail.utils.Util;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,7 @@ public class PageController {
     private MailService mailService = new MailServiceImpl();
 
     @GetMapping("/")
-    public String index(final Model model) {
+    public String index() {
         return "index";
     }
 
@@ -22,7 +23,7 @@ public class PageController {
 
     @GetMapping("/mails")
     public String mails(final Model model) {
-        model.addAttribute("mails", mailService.getAllMail());
+        model.addAttribute("mails", mailService.findAllByOwner(Util.getAuthorizedUserName()));
         return "mails";
     }
 

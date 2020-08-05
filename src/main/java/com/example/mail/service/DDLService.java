@@ -20,44 +20,21 @@ public class DDLService {
                     "CREATE TABLE mail\n" +
                     "(\n" +
                     "    mail_id  SERIAL PRIMARY KEY,\n" +
-                    "    to_who   VARCHAR(255) NOT NULL,\n" +
-                    "    from_who VARCHAR(255) NOT NULL,\n" +
+                    "    owner   VARCHAR(255) NOT NULL,\n" +
+                    "    receiver   VARCHAR(255) NOT NULL,\n" +
+                    "    author VARCHAR(255) NOT NULL,\n" +
+                    "    mail_type VARCHAR(1200) NOT NULL,\n" +
                     "    theme    VARCHAR(255) NOT NULL,\n" +
                     "    date_create   TIMESTAMP,\n" +
                     "    text     text         NOT NULL\n" +
                     ");";
     private static final String INSERT_MAILS =
-            "insert into mail (to_who, from_who, theme, date_create,text) values ('sidr.ivanov', 'Ivan.Sidoriv', 'testSendIN','2020-11-23 01:30:00','testtest');\n" +
-                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'sidr.ivanov', 'testSendIN','2020-01-14 09:33:00','outout');\n" +
-                    "insert into mail (to_who, from_who, theme, date_create,text) values ('sidr.ivanov', 'Ivan.Sidoriv', 'testSendIN','2020-04-21 12:35:00','txttext');\n" +
-                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'sidr.ivanov', 'testSendIN','2020-07-23 21:36:00','testWithtime');\n" +
-                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'admin.antonov', 'testSendIN','2020-09-15 15:41:00','outout');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('admin.antonov', 'Ivan.Sidoriv', 'testSendIN','2020-10-23 17:30:00','testWithtime');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('sidr.ivanov', 'Ivan.Sidoriv', 'testSendIN','2020-11-23 01:30:00','testtest');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'sidr.ivanov', 'testSendIN','2020-01-14 09:33:00','outout');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('sidr.ivanov', 'Ivan.Sidoriv', 'testSendIN','2020-04-21 12:35:00','txttext');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'sidr.ivanov', 'testSendIN','2020-07-23 21:36:00','testWithtime');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'admin.antonov', 'testSendIN','2020-09-15 15:41:00','outout');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('admin.antonov', 'Ivan.Sidoriv', 'testSendIN','2020-10-23 17:30:00','testWithtime');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('sidr.ivanov', 'Ivan.Sidoriv', 'testSendIN','2020-11-23 01:30:00','testtest');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'sidr.ivanov', 'testSendIN','2020-01-14 09:33:00','outout');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('sidr.ivanov', 'Ivan.Sidoriv', 'testSendIN','2020-04-21 12:35:00','txttext');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'sidr.ivanov', 'testSendIN','2020-07-23 21:36:00','testWithtime');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'admin.antonov', 'testSendIN','2020-09-15 15:41:00','outout');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('admin.antonov', 'Ivan.Sidoriv', 'testSendIN','2020-10-23 17:30:00','testWithtime');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('sidr.ivanov', 'Ivan.Sidoriv', 'testSendIN','2020-11-23 01:30:00','testtest');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'sidr.ivanov', 'testSendIN','2020-01-14 09:33:00','outout');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('sidr.ivanov', 'Ivan.Sidoriv', 'testSendIN','2020-04-21 12:35:00','txttext');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'sidr.ivanov', 'testSendIN','2020-07-23 21:36:00','testWithtime');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'admin.antonov', 'testSendIN','2020-09-15 15:41:00','outout');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('admin.antonov', 'Ivan.Sidoriv', 'testSendIN','2020-10-23 17:30:00','testWithtime');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('sidr.ivanov', 'Ivan.Sidoriv', 'testSendIN','2020-11-23 01:30:00','testtest');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'sidr.ivanov', 'testSendIN','2020-01-14 09:33:00','outout');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('sidr.ivanov', 'Ivan.Sidoriv', 'testSendIN','2020-04-21 12:35:00','txttext');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'sidr.ivanov', 'testSendIN','2020-07-23 21:36:00','testWithtime');\n" +
-//                    "insert into mail (to_who, from_who, theme, date_create,text) values ('Ivan.Sidoriv', 'admin.antonov', 'testSendIN','2020-09-15 15:41:00','outout');\n" +
-                    "insert into mail (to_who, from_who, theme, date_create,text) values ('admin.antonov', 'Ivan.Sidoriv', 'testSendIN','2020-10-23 17:30:00','testWithtime');\n" +
-                    "insert into mail (to_who, from_who, theme, date_create,text) values ('admin.antonov', 'Ivan.Sidoriv', 'testSendIN','2020-11-23 09:30:00','testWithtime');";
+                    "insert into mail (owner,receiver, author,mail_type , theme, date_create,text) values ('sidr.ivanov','sidr.ivanov', 'Ivan.Sidoriv', 'OOUGOING','testSendIN','2020-01-14 09:33:00','testtest');\n" +
+                    "insert into mail (owner,receiver, author,mail_type, theme, date_create,text) values ('Ivan.Sidoriv','Ivan.Sidoriv', 'sidr.ivanov', 'INCOMIG','testSendIN','2020-01-14 09:33:00','outout');\n" +
+                    "insert into mail (owner,receiver, author,mail_type ,theme, date_create,text) values ('Ivan.Sidoriv','Ivan.Sidoriv', 'admin.antonov','OOUGOING','testSendIN','2020-09-15 15:41:00','testWithtime');\n" +
+                    "insert into mail (owner,receiver, author, mail_type,theme, date_create,text) values ('admin.antonov','admin.antonov', 'Ivan.Sidoriv', 'INCOMIG','testSendIN','2020-09-15 15:41:00','outout');\n" +
+                    "insert into mail (owner,receiver, author, mail_type,theme, date_create,text) values ('sidr.ivanov','sidr.ivanov', 'admin.antonov', 'INCOMIG','testSendIN','2020-11-23 09:30:00','testWithtime');\n" +
+                    "insert into mail (owner,receiver, author, mail_type,theme, date_create,text) values ('admin.antonov','admin.antonov', 'sidr.ivanov','OOUGOING' ,'testSendIN','2020-11-23 09:30:00','testWithtime');";
 
     private static final String INSERT_USERS =
             "insert into mail_user (USER_NAME,USER_ROLE, USER_PASSWORD)\n" +

@@ -94,8 +94,8 @@ function deleteMail() {
         $('#mails-list').find('input[type="checkbox"]:checked').each(function () {
             console.log(this.value);
             const row = this.parentElement.parentElement;
-            let mailId = this.value;
-            fetch(`/api/mail/${mailId}`, {
+            let mail_id = this.value;
+            fetch(`/api/mail/${mail_id}`, {
                 method: 'DELETE',
             })
                 .then(response => {
