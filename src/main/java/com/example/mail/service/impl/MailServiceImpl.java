@@ -1,7 +1,10 @@
 package com.example.mail.service.impl;
 
 import com.example.mail.entity.Mail;
+import com.example.mail.entity.MailDto;
+import com.example.mail.exeption.MailUserNotExistException;
 import com.example.mail.exeption.QueryNotExecuteException;
+import com.example.mail.security.MailUserService;
 import com.example.mail.service.ConnectionToDB;
 import com.example.mail.service.MailService;
 
@@ -14,14 +17,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MailServiceImpl implements MailService {
+    private MailUserService mailUserService = new MailUserServiceImpl();
     private static final String GET_ALL_MAIL = "SELECT * FROM MAIL ORDER BY DATE_CREATE DESC limit 20";
     private static final String GET_ALL_MAIL_BY_OWNER = "SELECT * FROM MAIL where owner = ? ORDER BY DATE_CREATE DESC limit 20";
     private static final String DELETE_MAIL_BY_ID = "DELETE FROM MAIL where MAIL_ID = ?";
-    private static final String CREATE_LETTERS = "";
+    private static final String CREATE_LETTERS = "insert into mail (owner,receiver, author,mail_type , theme, date_create,text) values (?,?,?,?,?,CURRENT_TIMESTAMP ,?)";
 
     @Override
-    public void createLetters(String author, String receiver, String theme, String text) {
-
+    public void createLetters(String owner, MailDto mailDto) {
+        Connection connection = ConnectionToDB.getDBConnection();
+        try {
+            if (mailUserService.findByUsername(mailDto.getReceiver()).isEmpty()) {
+                throw new MailUserNotExistException(mailDto.getReceiver());
+            }
+            PreparedStatement ps = connection.prepareStatement(CREATE_LETTERS);
+            ps.setString(1, owner);
+            ps.setString(2, mailDto.getReceiver());
+            ps.setString(3, owner);
+            ps.setString(4, "OOUGOING");
+            ps.setString(5, mailDto.getTheme());
+            ps.setString(6, mailDto.getText());
+            ps.execute();
+            ps.setString(1, mailDto.getReceiver());
+            ps.setString(2, mailDto.getReceiver());
+            ps.setString(3, owner);
+            ps.setString(4, "INCOMIG");
+            ps.setString(5, mailDto.getTheme());
+            ps.setString(6, mailDto.getText());
+            ps.execute();
+            ps.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new QueryNotExecuteException();
+        }
     }
 
     @Override
@@ -38,7 +66,7 @@ public class MailServiceImpl implements MailService {
             ps.close();
             connection.close();
         } catch (SQLException e) {
-            e.getMessage();
+            throw new QueryNotExecuteException();
         }
         return mailList;
     }
@@ -64,7 +92,6 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void deleteMail(String mailId) {
-        System.out.println(mailId);
         Connection connection = ConnectionToDB.getDBConnection();
         try {
             PreparedStatement ps = connection.prepareStatement(DELETE_MAIL_BY_ID);
@@ -83,7 +110,7 @@ public class MailServiceImpl implements MailService {
         mail.setId(rs.getInt("MAIL_ID"));
         String owner = rs.getString("owner");
         mail.setOwner(owner);
-        mail.setCompanion(getCompanion(owner,rs.getString("author"),rs.getString("receiver")));
+        mail.setCompanion(getCompanion(owner, rs.getString("author"), rs.getString("receiver")));
         mail.setMailType(rs.getString("MAIL_TYPE"));
         mail.setTheme(rs.getString("THEME"));
         mail.setText(rs.getString("TEXT"));
@@ -92,13 +119,13 @@ public class MailServiceImpl implements MailService {
         return mail;
     }
 
-    private String getCompanion(String owner,String author,String receiver) {
-       String result;
-       if (author.equals(owner)){
-           result = receiver;
-       }else{
-           result = author;
-       }
-       return result;
+    private String getCompanion(String owner, String author, String receiver) {
+        String result;
+        if (author.equals(owner)) {
+            result = receiver;
+        } else {
+            result = author;
+        }
+        return result;
     }
 }

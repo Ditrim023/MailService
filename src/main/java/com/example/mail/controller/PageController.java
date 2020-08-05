@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PageController {
+    private static final String MAILS = "mails";
     private MailService mailService = new MailServiceImpl();
 
     @GetMapping("/")
@@ -25,19 +26,8 @@ public class PageController {
     @GetMapping("/mails")
     public String mails(final Model model) {
         model.addAttribute("currentUserName", Util.getAuthorizedUserName());
-        model.addAttribute("mails", mailService.findAllByOwner(Util.getAuthorizedUserName()));
-        return "mails";
+        model.addAttribute(MAILS, mailService.findAllByOwner(Util.getAuthorizedUserName()));
+        return MAILS;
     }
 
-    @DeleteMapping("/mail/{mailId}")
-    @ResponseBody
-    public void deleteById(@PathVariable String mailId) {
-        mailService.deleteMail(mailId);
-    }
-
-    @PostMapping("/mail")
-    @ResponseBody
-    public void sendMessage(@RequestBody MailDto newMail) {
-        System.out.println(newMail);
-    }
 }

@@ -30,7 +30,7 @@ public class MailUserServiceImpl implements MailUserService {
                 mailUser = extractUser(result);
                 result.close();
             } else {
-                throw new MailUserNotExistException();
+                throw new MailUserNotExistException(username);
             }
             ps.close();
             connection.close();

@@ -11,14 +11,17 @@ function getModalWrite() {
     modalInputToWho.classList.add('form-control');
     modalInputToWho.setAttribute('id', 'mail-receiver');
     modalInputToWho.setAttribute('placeholder', 'Кому');
+    modalInputToWho.maxLength = 30;
     const modalInputTheme = document.createElement('input');
     modalInputTheme.classList.add('form-control');
     modalInputTheme.setAttribute('id', 'mail-theme');
     modalInputTheme.setAttribute('placeholder', 'Тема');
+    modalInputTheme.maxLength = 150;
     const modalText = document.createElement('textarea');
     modalText.classList.add('form-control');
     modalText.setAttribute('id', 'mail-text');
     modalText.setAttribute('placeholder', 'Текст');
+    modalText.maxLength = 1024;
     modalBody.append(modalInputToWho);
     modalBody.append(modalInputTheme);
     modalBody.append(modalText);
@@ -30,18 +33,12 @@ function getModalWrite() {
 }
 
 function sendMail() {
-    const receiver = document.getElementById('mail-receiver').value;
-    const theme = document.getElementById('mail-theme').value;
-    const text = document.getElementById('mail-text').value;
-    console.log(receiver);
-    console.log(theme);
-    console.log(text);
+
     const data = {
-        receiver: receiver,
-        theme: theme,
-        text: text
+        receiver: document.getElementById('mail-receiver').value,
+        theme: document.getElementById('mail-theme').value,
+        text: document.getElementById('mail-text').value
     };
-    console.log(data);
 
     fetch(`/mail`, {
         method: 'POST',
@@ -60,7 +57,7 @@ function sendMail() {
             }
         })
         .catch(error => {
-            console.error(error);
+            alert(error.toString());
         });
 
     modal.modal('toggle');
