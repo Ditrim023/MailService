@@ -1,7 +1,6 @@
 package com.example.mail.service.impl;
 
 import com.example.mail.entity.Mail;
-import com.example.mail.entity.MailView;
 import com.example.mail.exeption.QueryNotExecuteException;
 import com.example.mail.service.ConnectionToDB;
 import com.example.mail.service.MailService;
@@ -26,8 +25,8 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public List<MailView> getAllMail() {
-        List<MailView> mailList = new ArrayList<>();
+    public List<Mail> getAllMail() {
+        List<Mail> mailList = new ArrayList<>();
         Connection connection = ConnectionToDB.getDBConnection();
         try {
             PreparedStatement ps = connection.prepareStatement(GET_ALL_MAIL);
@@ -45,8 +44,8 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public List<MailView> findAllByOwner(String username) {
-        List<MailView> mailList = new ArrayList<>();
+    public List<Mail> findAllByOwner(String username) {
+        List<Mail> mailList = new ArrayList<>();
         Connection connection = ConnectionToDB.getDBConnection();
         try {
             PreparedStatement ps = connection.prepareStatement(GET_ALL_MAIL_BY_OWNER);
@@ -79,8 +78,8 @@ public class MailServiceImpl implements MailService {
     }
 
 
-    private MailView extractMail(ResultSet rs) throws SQLException {
-        MailView mail = new MailView();
+    private Mail extractMail(ResultSet rs) throws SQLException {
+        Mail mail = new Mail();
         mail.setId(rs.getInt("MAIL_ID"));
         String owner = rs.getString("owner");
         mail.setOwner(owner);

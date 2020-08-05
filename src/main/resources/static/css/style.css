@@ -35,7 +35,7 @@
 }
 
 #person {
-    padding-left: 450px;
+    padding-left: 430px;
 }
 
 
@@ -52,7 +52,7 @@
     padding-right: 12px;
 }
 
-#mail-who,#mail-theme,#mail-text{
+#mail-receiver,#mail-theme,#mail-text{
     margin-bottom: 10px;
 }
 

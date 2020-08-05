@@ -1,6 +1,7 @@
 document.getElementById('deleteButt').addEventListener('click', getModalDelete);
 document.getElementById('writeButt').addEventListener('click', getModalWrite);
 
+
 const modal = $('#modal');
 
 function getModalWrite() {
@@ -8,13 +9,13 @@ function getModalWrite() {
     modalBody.classList.add('modal-body');
     const modalInputToWho = document.createElement('input');
     modalInputToWho.classList.add('form-control');
-    modalInputToWho.setAttribute('id', 'mail-who');
-    modalInputToWho.setAttribute('placeholder', 'Имя получателя');
-    const modalInputTheme= document.createElement('input');
+    modalInputToWho.setAttribute('id', 'mail-receiver');
+    modalInputToWho.setAttribute('placeholder', 'Кому');
+    const modalInputTheme = document.createElement('input');
     modalInputTheme.classList.add('form-control');
     modalInputTheme.setAttribute('id', 'mail-theme');
     modalInputTheme.setAttribute('placeholder', 'Тема');
-    const modalText= document.createElement('textarea');3
+    const modalText = document.createElement('textarea');
     modalText.classList.add('form-control');
     modalText.setAttribute('id', 'mail-text');
     modalText.setAttribute('placeholder', 'Текст');
@@ -23,9 +24,46 @@ function getModalWrite() {
     modalBody.append(modalText);
 
     modal.empty();
-    createModal("Новое письмо", modalBody, writeMail);
+    createModal("Новое письмо", modalBody, sendMail);
     modal.modal('toggle');
     return modal;
+}
+
+function sendMail() {
+    const receiver = document.getElementById('mail-receiver').value;
+    const theme = document.getElementById('mail-theme').value;
+    const text = document.getElementById('mail-text').value;
+    console.log(receiver);
+    console.log(theme);
+    console.log(text);
+    const data = {
+        receiver: receiver,
+        theme: theme,
+        text: text
+    };
+    console.log(data);
+
+    fetch(`/mail`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json;
+            } else {
+                return response.json().then(object => {
+                    throw new Error(JSON.stringify(object));
+                })
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    modal.modal('toggle');
 }
 
 function getModalDelete() {
@@ -62,6 +100,7 @@ function createModal(title, modalBody, acceptFunction) {
 
     const acceptButton = document.createElement('button');
     acceptButton.classList.add('btn', 'btn-primary');
+    acceptButton.setAttribute('id', 'accept');
     acceptButton.type = 'button';
     acceptButton.textContent = 'Принять';
     acceptButton.addEventListener('click', acceptFunction);
@@ -87,29 +126,27 @@ function createModal(title, modalBody, acceptFunction) {
 
 }
 
-function writeMail(){}
-
 
 function deleteMail() {
-        $('#mails-list').find('input[type="checkbox"]:checked').each(function () {
-            console.log(this.value);
-            const row = this.parentElement.parentElement;
-            let mail_id = this.value;
-            fetch(`/api/mail/${mail_id}`, {
-                method: 'DELETE',
+    $('#mails-list').find('input[type="checkbox"]:checked').each(function () {
+        console.log(this.value);
+        const row = this.parentElement.parentElement;
+        let mail_id = this.value;
+        fetch(`/mail/${mail_id}`, {
+            method: 'DELETE',
+        })
+            .then(response => {
+                if (response.ok) {
+                    row.remove();
+                } else {
+                    return response.json().then(object => {
+                        throw new Error(JSON.stringify(object));
+                    })
+                }
             })
-                .then(response => {
-                    if (response.ok) {
-                        row.remove();
-                    } else {
-                        return response.json().then(object => {
-                            throw new Error(JSON.stringify(object));
-                        })
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        });
+            .catch(error => {
+                console.error(error);
+            });
+    });
     modal.modal('toggle');
 }

@@ -38,10 +38,11 @@ public class ProfileConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.
+        http.csrf().disable().
                 authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/mails","/users").hasRole("USER")
+                .antMatchers("/","/mail/**").permitAll()
+                .antMatchers("/mails", "/users" ).hasAnyRole("USER", "APICALL")
+                .antMatchers("/api/**").hasRole("APICALL")
                 .and().exceptionHandling().accessDeniedPage("/403")
                 .and().formLogin().loginPage("/login").failureUrl("/403").permitAll()
                 .loginProcessingUrl("/j_spring_security_check")
@@ -51,15 +52,6 @@ public class ProfileConfig extends WebSecurityConfigurerAdapter {
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login");
-//        http.
-//                authorizeRequests()
-//                .antMatchers("/").hasAnyRole()
-//                .antMatchers("/api/users").permitAll()
-//                .and().formLogin().loginPage("/login").permitAll()
-//                .loginProcessingUrl("/j_spring_security_check")
-//                .usernameParameter("login")
-//                .passwordParameter("password")
-//                .defaultSuccessUrl("/");
     }
 
     @Override

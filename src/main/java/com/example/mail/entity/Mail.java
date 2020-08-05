@@ -2,8 +2,9 @@ package com.example.mail.entity;
 
 public class Mail {
     private int id;
-    private String toWho;
-    private String fromWho;
+    private String owner;
+    private String companion;
+    private String mailType;
     private String theme;
     private String text;
     private String dateCreate;
@@ -11,9 +12,11 @@ public class Mail {
     public Mail() {
     }
 
-    public Mail(String toWho, String fromWho, String theme, String text, String dateCreate) {
-        this.toWho = toWho;
-        this.fromWho = fromWho;
+    public Mail(int id, String owner, String companion, String mailType, String theme, String text, String dateCreate) {
+        this.id = id;
+        this.owner = owner;
+        this.companion = companion;
+        this.mailType = mailType;
         this.theme = theme;
         this.text = text;
         this.dateCreate = dateCreate;
@@ -27,20 +30,28 @@ public class Mail {
         this.id = id;
     }
 
-    public String getToWho() {
-        return toWho;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setToWho(String toWho) {
-        this.toWho = toWho;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
-    public String getFromWho() {
-        return fromWho;
+    public String getCompanion() {
+        return companion;
     }
 
-    public void setFromWho(String fromWho) {
-        this.fromWho = fromWho;
+    public void setCompanion(String companion) {
+        this.companion = companion;
+    }
+
+    public String getMailType() {
+        return mailType;
+    }
+
+    public void setMailType(String mailType) {
+        this.mailType = mailType;
     }
 
     public String getTheme() {
