@@ -9,5 +9,9 @@ import java.util.Optional;
 public interface MailUserService {
     Optional<MailUser> findByUsername(String username);
 
+    String getRole(String username);
+
+    void setStatus(String currentUser, boolean status);
+
     List<MailUser> getAllUsers();
 }

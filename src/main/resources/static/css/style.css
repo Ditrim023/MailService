@@ -68,9 +68,28 @@
     width: 1000px;
 }
 
+#settings {
+    margin-top: 70px;
+    background-color: #ebebeb;
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 200px;
+}
+#settings p{
+    margin-bottom: 30px;
+}
+
+#settings form{
+    padding-top: 15px;
+    padding-left: 25px;
+}
+
+#settings span{
+  font-weight: bold;
+}
+
 #mail-form {
     margin: 60px auto 90px auto;
-    /*margin: 80px auto;*/
     width: 800px;
 }
 
@@ -103,7 +122,7 @@
     width: 300px;
 }
 
-#header a{
+#header a {
     text-decoration: none;
     color: black;
 }

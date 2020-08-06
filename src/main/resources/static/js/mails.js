@@ -6,9 +6,6 @@ $("#list td:not(:first-child)").click(function () {
     window.open(`/mail/${mailId}`, "_self");
 });
 
-function openWindow(mailId) {
-
-}
 
 function getModalDelete() {
     modal.empty();
@@ -73,7 +70,6 @@ function createModal(title, modalBody, acceptFunction) {
 
 function deleteMail() {
     $('#mails-list').find('input[type="checkbox"]:checked').each(function () {
-        // console.log(document.getElementById('current').innerText);
         const row = this.parentElement.parentElement;
         let mail_id = this.value;
         fetch(`/mail/${mail_id}`, {

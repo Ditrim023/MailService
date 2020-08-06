@@ -42,7 +42,7 @@
                     </div>
                     <div class="dropdown-menu dropdown-menu-right">
                         <span class="dropdown-item" id="current" th:text="${currentUserName}"></span>
-                        <span class="dropdown-item">Настройки</span>
+                        <a class="dropdown-item" th:href="@{/settings}">Настройки</a>
                         <a class="dropdown-item" href="/logout">Выйти</a>
                     </div>
                 </div>

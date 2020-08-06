@@ -1,6 +1,7 @@
 package com.example.mail.security;
 
 import com.example.mail.entity.MailUser;
+import com.example.mail.service.MailUserService;
 import com.example.mail.service.impl.MailUserServiceImpl;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Setting</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div id="main">
+    <div id="settings" >
+        <form th:action="@{mails}">
+            <p> Настроки пользователя <span th:text="${username}"></span></p>
+            <p>Разрешить взаимодействие через API <input type="checkbox" id="checkApi"/></p>
+            <button type="submit" class="btn btn-primary" id="check">Принять</button>
+            <a th:href="@{/mails}" type="button" class="btn btn-danger">Отмена</a>
+        </form>
+    </div>
+</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script type="module" src="/js/setting.js"></script>
+</html>

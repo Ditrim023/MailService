@@ -2,10 +2,11 @@ package com.example.mail.controller;
 
 import com.example.mail.entity.Mail;
 import com.example.mail.entity.MailUser;
-import com.example.mail.security.MailUserService;
 import com.example.mail.service.MailService;
+import com.example.mail.service.MailUserService;
 import com.example.mail.service.impl.MailServiceImpl;
 import com.example.mail.service.impl.MailUserServiceImpl;
+import com.example.mail.utils.Util;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,4 +36,14 @@ public class ApiController {
         mailService.deleteMail(mailId);
     }
 
+    @GetMapping("/check/role")
+    public String getRole() {
+        return mailUserService.getRole(Util.getAuthorizedUserName());
+    }
+
+    @PostMapping("/api/set")
+    public String checkApi(@RequestBody Boolean status) {
+        mailUserService.setStatus(Util.getAuthorizedUserName(), status);
+        return "redirect:/mails";
+    }
 }

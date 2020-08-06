@@ -4,7 +4,7 @@ import com.example.mail.entity.Mail;
 import com.example.mail.exeption.MailNotExistException;
 import com.example.mail.exeption.MailUserNotExistException;
 import com.example.mail.exeption.QueryNotExecuteException;
-import com.example.mail.security.MailUserService;
+import com.example.mail.service.MailUserService;
 import com.example.mail.service.ConnectionToDB;
 import com.example.mail.service.MailService;
 

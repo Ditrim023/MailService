@@ -41,8 +41,8 @@ public class ProfileConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().
                 authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/mails", "/users","/mail/**","/settings").hasAnyRole("USER", "APICALL")
-                .antMatchers("/api/**").hasRole("APICALL")
+                .antMatchers("/mails", "/users", "/mail/**", "/settings", "/check/api").hasAnyRole("USER", "APICALL")
+                .antMatchers("/api/**").hasAnyRole("USER", "APICALL")
                 .and().exceptionHandling().accessDeniedPage("/403")
                 .and().formLogin().loginPage("/login").failureUrl("/403").permitAll()
                 .loginProcessingUrl("/j_spring_security_check")
