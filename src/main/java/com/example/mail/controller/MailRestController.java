@@ -32,11 +32,13 @@ public class MailRestController {
         return mailUserService.getAllUsers();
     }
 
-    @PostMapping("/mail")
-    public String sendMessage(@RequestBody MailDto newMail) {
-        mailService.createLetters(Util.getAuthorizedUserName(), newMail);
-        return "redirect:/mails";
-    }
+//    @GetMapping("/mail")
+//    public String sendMessage(@RequestBody MailDto newMail) {
+//        mailService.createLetters(Util.getAuthorizedUserName(), newMail);
+//        return "redirect:/mails";
+//    }
+
+
 
     @DeleteMapping("/mail/{mailId}")
     public void deleteById(@PathVariable String mailId) {

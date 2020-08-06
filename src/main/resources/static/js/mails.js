@@ -1,5 +1,5 @@
 document.getElementById('deleteButt').addEventListener('click', getModalDelete);
-document.getElementById('writeButt').addEventListener('click', getModalWrite);
+// document.getElementById('writeButt').addEventListener('click', getModalWrite);
 
 
 const modal = $('#modal');

@@ -30,4 +30,9 @@ public class PageController {
         return MAILS;
     }
 
+    @GetMapping("/mail")
+    public String mail() {
+        return "mail";
+    }
+
 }
