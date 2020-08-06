@@ -57,8 +57,9 @@ public class PageController {
 
     @GetMapping("mail/search")
     public String search(@RequestParam String search, Model model) {
+        model.addAttribute("currentUserName", Util.getAuthorizedUserName());
         model.addAttribute(MAILS, mailService.getSearchMail(Util.getAuthorizedUserName(), search));
-        return "redirect:/mails";
+        return "MAILS";
     }
 
     @GetMapping("/mails")

@@ -1,6 +1,7 @@
 package com.example.mail.controller;
 
 import com.example.mail.entity.Mail;
+import com.example.mail.entity.MailDto;
 import com.example.mail.entity.MailUser;
 import com.example.mail.service.MailService;
 import com.example.mail.service.MailUserService;
@@ -18,12 +19,22 @@ public class ApiController {
 
     @GetMapping("/api/mails")
     public List<Mail> getAllMail() {
-        return mailService.getAllMail();
+        return mailService.findAllByOwner(Util.getAuthorizedUserName());
+    }
+
+    @PostMapping("/api/mails")
+    public List<Mail> apiSearch(@RequestBody String search) {
+        return mailService.getSearchMail(Util.getAuthorizedUserName(), search);
     }
 
     @DeleteMapping("/api/mail/{mailId}")
     public void deleteByApiId(@PathVariable String mailId) {
         mailService.deleteMail(mailId);
+    }
+
+    @PostMapping("/api/mail")
+    public void sendApiMail(@RequestBody MailDto mailDto){
+        mailService.createLetters(Util.getAuthorizedUserName(), mailDto.getReceiver(), mailDto.getTheme(), mailDto.getText());
     }
 
     @GetMapping("/api/users")
