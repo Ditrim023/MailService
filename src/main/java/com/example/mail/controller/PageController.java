@@ -1,11 +1,14 @@
 package com.example.mail.controller;
 
+import com.example.mail.entity.Mail;
+import com.example.mail.exeption.MailUserNotExistException;
 import com.example.mail.service.MailService;
 import com.example.mail.service.impl.MailServiceImpl;
 import com.example.mail.utils.Util;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,14 +27,25 @@ public class PageController {
         return "login";
     }
 
-    @GetMapping("/mail")
-    public String mail() {
-        return "mail";
+    @GetMapping("/new-mail")
+    public String newMail() {
+        return "new-mail";
+    }
+
+    @GetMapping("/answer/{mailId}")
+    public String answer(@PathVariable String mailId, Model model) {
+        try {
+            Mail mail = mailService.getMail(mailId);
+            model.addAttribute("mail", mail);
+        } catch (MailUserNotExistException e) {
+            return "errors/mail-not-exist.html";
+        }
+        return "answer";
     }
 
     @GetMapping(value = "/403")
     public String error() {
-        return "403";
+        return "errors/403";
     }
 
     @GetMapping("/mails")
@@ -41,9 +55,24 @@ public class PageController {
         return MAILS;
     }
 
+    @GetMapping("/mail/{mailId}")
+    public String mail(@PathVariable String mailId, final Model model) {
+        try {
+            Mail mail = mailService.getMail(mailId);
+            model.addAttribute("mail", mail);
+        } catch (MailUserNotExistException e) {
+            return "errors/mail-not-exist.html";
+        }
+        return "mail";
+    }
+
     @PostMapping(value = "/mail/create")
     public String sendMessage(@RequestParam String receiver, @RequestParam String theme, @RequestParam String text) {
-        mailService.createLetters(Util.getAuthorizedUserName(), receiver, theme, text);
+        try {
+            mailService.createLetters(Util.getAuthorizedUserName(), receiver, theme, text);
+        } catch (MailUserNotExistException e) {
+            return "errors/user-not-exist.html";
+        }
         return "redirect:/mails";
     }
 

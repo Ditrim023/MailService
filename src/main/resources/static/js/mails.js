@@ -1,67 +1,24 @@
 document.getElementById('deleteButt').addEventListener('click', getModalDelete);
-// document.getElementById('writeButt').addEventListener('click', getModalWrite);
-
-
 const modal = $('#modal');
+$("#mails-list tr").click(function () {
+    let mailId = this.children[0].children[0].value;
+    window.open(`/mail/${mailId}`,"_self");
+    //
+    // fetch(`/mail/${mailId}`, {method: 'GET'})
+    //     .then(response => {
+    //         if (response.ok) {
+    //             return response.blob();
+    //         } else {
+    //             return response.json().then(object => {
+    //                 throw new Error(JSON.stringify(object));
+    //             })
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.error(error);
+    //     });
 
-function getModalWrite() {
-    const modalBody = document.createElement('div');
-    modalBody.classList.add('modal-body');
-    const modalInputToWho = document.createElement('input');
-    modalInputToWho.classList.add('form-control');
-    modalInputToWho.setAttribute('id', 'mail-receiver');
-    modalInputToWho.setAttribute('placeholder', 'Кому');
-    modalInputToWho.maxLength = 30;
-    const modalInputTheme = document.createElement('input');
-    modalInputTheme.classList.add('form-control');
-    modalInputTheme.setAttribute('id', 'mail-theme');
-    modalInputTheme.setAttribute('placeholder', 'Тема');
-    modalInputTheme.maxLength = 150;
-    const modalText = document.createElement('textarea');
-    modalText.classList.add('form-control');
-    modalText.setAttribute('id', 'mail-text');
-    modalText.setAttribute('placeholder', 'Текст');
-    modalText.maxLength = 1024;
-    modalBody.append(modalInputToWho);
-    modalBody.append(modalInputTheme);
-    modalBody.append(modalText);
-
-    modal.empty();
-    createModal("Новое письмо", modalBody, sendMail);
-    modal.modal('toggle');
-    return modal;
-}
-
-function sendMail() {
-
-    const data = {
-        receiver: document.getElementById('mail-receiver').value,
-        theme: document.getElementById('mail-theme').value,
-        text: document.getElementById('mail-text').value
-    };
-
-    fetch(`/mail`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => {
-            if (response.ok) {
-                return response.json;
-            } else {
-                return response.json().then(object => {
-                    throw new Error(JSON.stringify(object));
-                })
-            }
-        })
-        .catch(error => {
-            alert(error.toString());
-        });
-
-    modal.modal('toggle');
-}
+});
 
 function getModalDelete() {
     modal.empty();
@@ -126,7 +83,6 @@ function createModal(title, modalBody, acceptFunction) {
 
 function deleteMail() {
     $('#mails-list').find('input[type="checkbox"]:checked').each(function () {
-        console.log(this.value);
         const row = this.parentElement.parentElement;
         let mail_id = this.value;
         fetch(`/mail/${mail_id}`, {

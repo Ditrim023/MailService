@@ -77,4 +77,17 @@ public class Mail {
     public void setDateCreate(String dateCreate) {
         this.dateCreate = dateCreate;
     }
+
+    @Override
+    public String toString() {
+        return "Mail{" +
+                "id=" + id +
+                ", owner='" + owner + '\'' +
+                ", companion='" + companion + '\'' +
+                ", mailType='" + mailType + '\'' +
+                ", theme='" + theme + '\'' +
+                ", text='" + text + '\'' +
+                ", dateCreate='" + dateCreate + '\'' +
+                '}';
+    }
 }

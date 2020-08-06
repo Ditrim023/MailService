@@ -1,6 +1,7 @@
 package com.example.mail.service.impl;
 
 import com.example.mail.entity.Mail;
+import com.example.mail.exeption.MailNotExistException;
 import com.example.mail.exeption.MailUserNotExistException;
 import com.example.mail.exeption.QueryNotExecuteException;
 import com.example.mail.security.MailUserService;
@@ -18,9 +19,32 @@ import java.util.List;
 public class MailServiceImpl implements MailService {
     private MailUserService mailUserService = new MailUserServiceImpl();
     private static final String GET_ALL_MAIL = "SELECT * FROM MAIL ORDER BY DATE_CREATE DESC limit 20";
+    private static final String GET_MAIL = "SELECT * FROM MAIL WHERE MAIL_ID = ?";
     private static final String GET_ALL_MAIL_BY_OWNER = "SELECT * FROM MAIL where owner = ? ORDER BY DATE_CREATE DESC limit 20";
     private static final String DELETE_MAIL_BY_ID = "DELETE FROM MAIL where MAIL_ID = ?";
-    private static final String CREATE_LETTERS = "insert into mail (owner,receiver, author,mail_type , theme, date_create,text) values (?,?,?,?,?,CURRENT_TIMESTAMP ,?)";
+    private static final String CREATE_LETTERS = "insert into mail (owner,receiver, author,mail_type , theme, date_create,text) values (?,?,?,?,?,CURRENT_TIMESTAMP,?)";
+
+    @Override
+    public Mail getMail(String mailId) {
+        Connection connection = ConnectionToDB.getDBConnection();
+        Mail mail;
+        try {
+            PreparedStatement ps = connection.prepareStatement(GET_MAIL);
+            ps.setInt(1, Integer.parseInt(mailId));
+            ResultSet result = ps.executeQuery();
+            if (result.next()) {
+                mail = extractMail(result);
+                result.close();
+            } else {
+                throw new MailNotExistException();
+            }
+            ps.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new QueryNotExecuteException();
+        }
+        return mail;
+    }
 
     @Override
     public void createLetters(String owner, String receiver, String theme, String text) {

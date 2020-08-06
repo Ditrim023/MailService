@@ -5,6 +5,7 @@ import com.example.mail.entity.Mail;
 import java.util.List;
 
 public interface MailService {
+    Mail getMail(String mailId);
     void createLetters(String owner, String receiver, String theme, String text);
     List<Mail> getAllMail();
     List<Mail> findAllByOwner(String username);
