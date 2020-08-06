@@ -2,14 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <meta charset="UTF-8"/>
-    <title>Login Page</title>
+    <title>New Mail</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<h1>New mail</h1>
+<div id="main">
+    <div id="new-mail">
+        <form id="mail-form" th:action="@{/mail/create}" method="post">
+            <h3>Новое письмо</h3>
+            <div class="form-group">
+                <label for="mail-receiver">Кому</label>
+                <input type="text" class="form-control" id="mail-receiver" name="receiver" placeholder="Кому">
+            </div>
+            <div class="form-group">
+                <label for="mail-theme">Тема</label>
+                <input type="text" class="form-control" id="mail-theme" name="theme" placeholder="Тема">
+            </div>
+            <div class="form-group">
+                <label for="mail-text">Текст</label>
+                <textarea class="form-control" id="mail-text" name="text" placeholder="Текст"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Принять</button>
+            <a th:href="@{/mails}" type="button" class="btn btn-danger">Отмена</a>
+        </form>
+    </div>
+</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

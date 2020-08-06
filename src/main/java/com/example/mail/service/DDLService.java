@@ -29,12 +29,12 @@ public class DDLService {
                     "    text     text         NOT NULL\n" +
                     ");";
     private static final String INSERT_MAILS =
-                    "insert into mail (owner,receiver, author,mail_type , theme, date_create,text) values ('Ivan.Petrov','Ivan.Petrov', 'Ivan.Sidorov', 'OOUGOING','testSendIN','2020-01-14 09:33:00','testtest');\n" +
-                    "insert into mail (owner,receiver, author,mail_type, theme, date_create,text) values ('Ivan.Sidorov','Ivan.Sidorov', 'Ivan.Petrov', 'INCOMIG','testSendIN','2020-01-14 09:33:00','outout');\n" +
+                    "insert into mail (owner,receiver, author,mail_type , theme, date_create,text) values ('Jhon.Doe','Jhon.Doe', 'Ivan.Sidorov', 'OOUGOING','testSendIN','2020-01-14 09:33:00','testtest');\n" +
+                    "insert into mail (owner,receiver, author,mail_type, theme, date_create,text) values ('Ivan.Sidorov','Ivan.Sidorov', 'Jhon.Doe', 'INCOMIG','testSendIN','2020-01-14 09:33:00','outout');\n" +
                     "insert into mail (owner,receiver, author,mail_type ,theme, date_create,text) values ('Ivan.Sidorov','Ivan.Sidorov', 'admin.antonov','OOUGOING','testSendIN','2020-07-15 15:41:00','testWithtime');\n" +
                     "insert into mail (owner,receiver, author, mail_type,theme, date_create,text) values ('admin.antonov','admin.antonov', 'Ivan.Sidorov', 'INCOMIG','testSendIN','2020-07-15 15:41:00','outout');\n" +
-                    "insert into mail (owner,receiver, author, mail_type,theme, date_create,text) values ('Ivan.Petrov','Ivan.Petrov', 'admin.antonov', 'INCOMIG','testSendIN','2020-01-23 09:30:00','testWithtime');\n" +
-                    "insert into mail (owner,receiver, author, mail_type,theme, date_create,text) values ('admin.antonov','admin.antonov', 'Ivan.Petrov','OOUGOING' ,'testSendIN','2020-01-23 09:30:00','testWithtime');";
+                    "insert into mail (owner,receiver, author, mail_type,theme, date_create,text) values ('Jhon.Doe','Jhon.Doe', 'admin.antonov', 'INCOMIG','testSendIN','2020-01-23 09:30:00','testWithtime');\n" +
+                    "insert into mail (owner,receiver, author, mail_type,theme, date_create,text) values ('admin.antonov','admin.antonov', 'Jhon.Doe','OOUGOING' ,'testSendIN','2020-01-23 09:30:00','testWithtime');";
 
     private static final String INSERT_USERS =
             "insert into mail_user (USER_NAME,USER_ROLE, USER_PASSWORD)\n" +
@@ -63,10 +63,10 @@ public class DDLService {
         ps.setString(1, "admin.antonov");
         ps.setString(2, new BCryptPasswordEncoder(10).encode(PASSWORD));
         ps.executeUpdate();
-        ps.setString(1, "Ivan.Sidoriv");
+        ps.setString(1, "Jhon.Doe");
         ps.setString(2, new BCryptPasswordEncoder(10).encode(PASSWORD));
         ps.execute();
-        ps.setString(1, "sidr.ivanov");
+        ps.setString(1, "Ivan.Sidorov");
         ps.setString(2, new BCryptPasswordEncoder(10).encode(PASSWORD));
         ps.execute();
         ps.close();

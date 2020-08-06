@@ -40,8 +40,8 @@ public class ProfileConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http.csrf().disable().
                 authorizeRequests()
-                .antMatchers("/","/mail/**").permitAll()
-                .antMatchers("/mails", "/users" ).hasAnyRole("USER", "APICALL")
+                .antMatchers("/").permitAll()
+                .antMatchers("/mails", "/users","/mail/**" ).hasAnyRole("USER", "APICALL")
                 .antMatchers("/api/**").hasRole("APICALL")
                 .and().exceptionHandling().accessDeniedPage("/403")
                 .and().formLogin().loginPage("/login").failureUrl("/403").permitAll()

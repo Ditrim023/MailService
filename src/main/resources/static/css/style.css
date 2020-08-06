@@ -52,7 +52,29 @@
     padding-right: 12px;
 }
 
-#mail-receiver,#mail-theme,#mail-text{
+#new-mail {
+    background-color: #ebebeb;
+    margin: 150px auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 1000px;
+}
+
+#mail-form {
+    margin: 50px auto;
+    width: 800px;
+}
+
+#mail-form a {
+    float: right;
+}
+
+#mail-form textarea {
+    resize: none;
+    height: 10em;
+}
+
+#mail-receiver, #mail-theme, #mail-text {
     margin-bottom: 10px;
 }
 

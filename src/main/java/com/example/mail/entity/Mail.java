@@ -12,10 +12,6 @@ public class Mail {
     public Mail() {
     }
 
-    public Mail(String owner,MailDto dto) {
-        this.owner = owner;
-    }
-
     public Mail(int id, String owner, String companion, String mailType, String theme, String text, String dateCreate) {
         this.id = id;
         this.owner = owner;

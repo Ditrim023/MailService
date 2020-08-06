@@ -1,12 +1,13 @@
 package com.example.mail.controller;
 
-import com.example.mail.entity.MailDto;
 import com.example.mail.service.MailService;
 import com.example.mail.service.impl.MailServiceImpl;
 import com.example.mail.utils.Util;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PageController {
@@ -23,6 +24,16 @@ public class PageController {
         return "login";
     }
 
+    @GetMapping("/mail")
+    public String mail() {
+        return "mail";
+    }
+
+    @GetMapping(value = "/403")
+    public String error() {
+        return "403";
+    }
+
     @GetMapping("/mails")
     public String mails(final Model model) {
         model.addAttribute("currentUserName", Util.getAuthorizedUserName());
@@ -30,9 +41,10 @@ public class PageController {
         return MAILS;
     }
 
-    @GetMapping("/mail")
-    public String mail() {
-        return "mail";
+    @PostMapping(value = "/mail/create")
+    public String sendMessage(@RequestParam String receiver, @RequestParam String theme, @RequestParam String text) {
+        mailService.createLetters(Util.getAuthorizedUserName(), receiver, theme, text);
+        return "redirect:/mails";
     }
 
 }

@@ -1,7 +1,6 @@
 package com.example.mail.service.impl;
 
 import com.example.mail.entity.Mail;
-import com.example.mail.entity.MailDto;
 import com.example.mail.exeption.MailUserNotExistException;
 import com.example.mail.exeption.QueryNotExecuteException;
 import com.example.mail.security.MailUserService;
@@ -24,26 +23,26 @@ public class MailServiceImpl implements MailService {
     private static final String CREATE_LETTERS = "insert into mail (owner,receiver, author,mail_type , theme, date_create,text) values (?,?,?,?,?,CURRENT_TIMESTAMP ,?)";
 
     @Override
-    public void createLetters(String owner, MailDto mailDto) {
+    public void createLetters(String owner, String receiver, String theme, String text) {
         Connection connection = ConnectionToDB.getDBConnection();
         try {
-            if (mailUserService.findByUsername(mailDto.getReceiver()).isEmpty()) {
-                throw new MailUserNotExistException(mailDto.getReceiver());
+            if (mailUserService.findByUsername(receiver).isEmpty()) {
+                throw new MailUserNotExistException(receiver);
             }
             PreparedStatement ps = connection.prepareStatement(CREATE_LETTERS);
             ps.setString(1, owner);
-            ps.setString(2, mailDto.getReceiver());
+            ps.setString(2, receiver);
             ps.setString(3, owner);
             ps.setString(4, "OOUGOING");
-            ps.setString(5, mailDto.getTheme());
-            ps.setString(6, mailDto.getText());
+            ps.setString(5, theme);
+            ps.setString(6, text);
             ps.execute();
-            ps.setString(1, mailDto.getReceiver());
-            ps.setString(2, mailDto.getReceiver());
+            ps.setString(1, receiver);
+            ps.setString(2, receiver);
             ps.setString(3, owner);
             ps.setString(4, "INCOMIG");
-            ps.setString(5, mailDto.getTheme());
-            ps.setString(6, mailDto.getText());
+            ps.setString(5, theme);
+            ps.setString(6, text);
             ps.execute();
             ps.close();
             connection.close();
