@@ -85,4 +85,9 @@
 #mail-receiver, #mail-theme, #mail-text {
     margin-bottom: 10px;
 }
+.error {
+    color: red;
+    float: right;
+}
+
 
