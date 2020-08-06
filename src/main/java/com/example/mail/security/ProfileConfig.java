@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -41,8 +40,8 @@ public class ProfileConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().
                 authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/mails", "/users", "/mail/**", "/settings", "/check/api").hasAnyRole("USER", "APICALL")
-                .antMatchers("/api/**").hasAnyRole("USER", "APICALL")
+                .antMatchers("/mails", "/users", "/mail/**", "/settings", "/check/api", "/api/set").hasAnyRole("USER", "APICALL")
+                .antMatchers("/api/**").hasRole("APICALL").and().httpBasic()
                 .and().exceptionHandling().accessDeniedPage("/403")
                 .and().formLogin().loginPage("/login").failureUrl("/403").permitAll()
                 .loginProcessingUrl("/j_spring_security_check")
@@ -50,7 +49,6 @@ public class ProfileConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .defaultSuccessUrl("/mails")
                 .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login");
     }
 
