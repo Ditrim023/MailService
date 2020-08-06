@@ -1,6 +1,7 @@
 package com.example.mail.controller;
 
 import com.example.mail.entity.Mail;
+import com.example.mail.exeption.MailNotExistException;
 import com.example.mail.exeption.MailUserNotExistException;
 import com.example.mail.service.MailService;
 import com.example.mail.service.impl.MailServiceImpl;
@@ -32,6 +33,11 @@ public class PageController {
         return "new-mail";
     }
 
+    @GetMapping(value = "/403")
+    public String error() {
+        return "errors/403";
+    }
+
     @GetMapping("/answer/{mailId}")
     public String answer(@PathVariable String mailId, Model model) {
         try {
@@ -43,9 +49,10 @@ public class PageController {
         return "answer";
     }
 
-    @GetMapping(value = "/403")
-    public String error() {
-        return "errors/403";
+    @GetMapping("mail/search")
+    public String search(@RequestParam String search, Model model) {
+        model.addAttribute(MAILS, mailService.getSearchMail(Util.getAuthorizedUserName(), search));
+        return MAILS;
     }
 
     @GetMapping("/mails")
@@ -60,7 +67,7 @@ public class PageController {
         try {
             Mail mail = mailService.getMail(mailId);
             model.addAttribute("mail", mail);
-        } catch (MailUserNotExistException e) {
+        } catch (MailNotExistException e) {
             return "errors/mail-not-exist.html";
         }
         return "mail";

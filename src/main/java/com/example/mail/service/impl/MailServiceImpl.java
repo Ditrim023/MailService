@@ -23,6 +23,32 @@ public class MailServiceImpl implements MailService {
     private static final String GET_ALL_MAIL_BY_OWNER = "SELECT * FROM MAIL where owner = ? ORDER BY DATE_CREATE DESC limit 20";
     private static final String DELETE_MAIL_BY_ID = "DELETE FROM MAIL where MAIL_ID = ?";
     private static final String CREATE_LETTERS = "insert into mail (owner,receiver, author,mail_type , theme, date_create,text) values (?,?,?,?,?,CURRENT_TIMESTAMP,?)";
+    private static final String SEARCH = "select * from mail where owner = ? and (receiver LIKE ? or author LIKE ? or theme LIKE ? or text LIKE ?);";
+
+    @Override
+    public List<Mail> getSearchMail(String owner, String search) {
+        String searchScript = "%" + search + "%";
+        List<Mail> mailList = new ArrayList<>();
+        Connection connection = ConnectionToDB.getDBConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(SEARCH);
+            ps.setString(1, owner);
+            ps.setString(2, searchScript);
+            ps.setString(3, searchScript);
+            ps.setString(4, searchScript);
+            ps.setString(5, searchScript);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                mailList.add((extractMail(rs)));
+            }
+            rs.close();
+            ps.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new QueryNotExecuteException();
+        }
+        return mailList;
+    }
 
     @Override
     public Mail getMail(String mailId) {
@@ -52,7 +78,7 @@ public class MailServiceImpl implements MailService {
         Connection connection = ConnectionToDB.getDBConnection();
         try {
             PreparedStatement ps = connection.prepareStatement(CREATE_LETTERS);
-            for (int i = 0; i < receiver.length; i++){
+            for (int i = 0; i < receiver.length; i++) {
                 if (mailUserService.findByUsername(receiver[i]).isEmpty()) {
                     throw new MailUserNotExistException(receiver[i]);
                 }

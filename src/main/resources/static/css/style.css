@@ -47,11 +47,11 @@
     margin-bottom: 5px;
 }
 
-#new-mail p{
+#new-mail p {
     font-weight: bold;
 }
 
-#new-mail span{
+#new-mail span {
     font-weight: normal;
 }
 
@@ -69,7 +69,8 @@
 }
 
 #mail-form {
-    margin: 80px auto;
+    margin: 60px auto 90px auto;
+    /*margin: 80px auto;*/
     width: 800px;
 }
 
@@ -85,9 +86,25 @@
 #mail-receiver, #mail-theme, #mail-text {
     margin-bottom: 10px;
 }
+
 .error {
     color: red;
     float: right;
+}
+
+#page-error {
+    text-align: center;
+    margin-top: 250px;
+}
+
+#search {
+    margin-right: 15px;
+    margin-left: 5px;
+}
+
+#header a{
+    text-decoration: none;
+    color: black;
 }
 
 

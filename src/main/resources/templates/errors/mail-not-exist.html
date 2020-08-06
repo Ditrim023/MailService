@@ -9,8 +9,9 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<div class="login-form">
-    <h1>Такого письма не существует <a th:href="@{/mails}">Письма</a></h1>
+<div id="page-error">
+    <h1>Такого письма не существует</h1>
+    <h1><a th:href="@{/mails}">Вернуться к списку</a></h1>
 </div>
 </body>
 </html>
