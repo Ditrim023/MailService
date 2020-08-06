@@ -1,24 +1,14 @@
 document.getElementById('deleteButt').addEventListener('click', getModalDelete);
 const modal = $('#modal');
-$("#mails-list tr").click(function () {
-    let mailId = this.children[0].children[0].value;
-    window.open(`/mail/${mailId}`,"_self");
-    //
-    // fetch(`/mail/${mailId}`, {method: 'GET'})
-    //     .then(response => {
-    //         if (response.ok) {
-    //             return response.blob();
-    //         } else {
-    //             return response.json().then(object => {
-    //                 throw new Error(JSON.stringify(object));
-    //             })
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //     });
 
+$("#list td:not(:first-child)").click(function () {
+    let mailId = document.getElementById('list').children[0].children[0].value;
+    window.open(`/mail/${mailId}`, "_self");
 });
+
+function openWindow(mailId) {
+
+}
 
 function getModalDelete() {
     modal.empty();
@@ -83,6 +73,7 @@ function createModal(title, modalBody, acceptFunction) {
 
 function deleteMail() {
     $('#mails-list').find('input[type="checkbox"]:checked').each(function () {
+        // console.log(document.getElementById('current').innerText);
         const row = this.parentElement.parentElement;
         let mail_id = this.value;
         fetch(`/mail/${mail_id}`, {

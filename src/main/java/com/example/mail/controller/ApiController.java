@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class MailRestController {
+public class ApiController {
     private MailService mailService = new MailServiceImpl();
     private MailUserService mailUserService = new MailUserServiceImpl();
 

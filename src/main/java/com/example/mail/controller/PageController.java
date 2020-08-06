@@ -49,6 +49,12 @@ public class PageController {
         return "answer";
     }
 
+    @GetMapping("/settings")
+    public String settings( Model model) {
+        model.addAttribute("username", Util.getAuthorizedUserName());
+        return "settings";
+    }
+
     @GetMapping("mail/search")
     public String search(@RequestParam String search, Model model) {
         model.addAttribute(MAILS, mailService.getSearchMail(Util.getAuthorizedUserName(), search));

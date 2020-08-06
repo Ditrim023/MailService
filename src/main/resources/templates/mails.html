@@ -41,7 +41,7 @@
                         </h1>
                     </div>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <span class="dropdown-item" th:text="${currentUserName}"></span>
+                        <span class="dropdown-item" id="current" th:text="${currentUserName}"></span>
                         <span class="dropdown-item">Настройки</span>
                         <a class="dropdown-item" href="/logout">Выйти</a>
                     </div>
@@ -68,14 +68,19 @@
     </div>
     <table class="table table-hover">
         <tbody th:each="mail : ${mails}" id="mails-list">
-            <td><input type="checkbox" th:value="${mail.id}" id="id"></td>
+        <tr id="list">
+            <td><input type="checkbox" th:value="${mail.id}"></td>
             <td th:text="${mail.companion}">Автор</td>
             <td th:text="${mail.mailType}"></td>
             <td th:text="${mail.theme}">Тема</td>
             <td th:text="${mail.dateCreate}">Дата создания</td>
         </tbody>
+        </tr>
     </table>
 </div>
+
+<!--  Modal  -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog"  aria-hidden="true"></div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
