@@ -15,3 +15,11 @@ POST /api/mail - отправить новое письмо. На вход пр�
         "text": "beberberberwberbrebfdvbhvbsdjqwertyvbsdovbdlsjbvdlsjbfldbflkbdslkfbdslkfbdslkfbdsk"
 }
 ```
+Зарегестрированные пользователи
+```
+admin.antonov
+Jhon.Doe
+Ivan.Sidorov
+пароль
+123456
+```
