@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface MailService {
     Mail getMail(String mailId);
-    void createLetters(String owner, String receiver, String theme, String text);
+    void createLetters(String owner, String receivers, String theme, String text);
     List<Mail> getAllMail();
     List<Mail> findAllByOwner(String username);
     void deleteMail(String mailId);

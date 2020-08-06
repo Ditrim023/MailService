@@ -67,9 +67,9 @@ public class PageController {
     }
 
     @PostMapping(value = "/mail/create")
-    public String sendMessage(@RequestParam String receiver, @RequestParam String theme, @RequestParam String text) {
+    public String sendMessage(@RequestParam String receivers, @RequestParam String theme, @RequestParam String text) {
         try {
-            mailService.createLetters(Util.getAuthorizedUserName(), receiver, theme, text);
+            mailService.createLetters(Util.getAuthorizedUserName(), receivers, theme, text);
         } catch (MailUserNotExistException e) {
             return "errors/user-not-exist.html";
         }

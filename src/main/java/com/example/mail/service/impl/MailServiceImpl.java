@@ -47,27 +47,32 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void createLetters(String owner, String receiver, String theme, String text) {
+    public void createLetters(String owner, String receivers, String theme, String text) {
+        String[] receiver = receivers.split(",");
         Connection connection = ConnectionToDB.getDBConnection();
         try {
-            if (mailUserService.findByUsername(receiver).isEmpty()) {
-                throw new MailUserNotExistException(receiver);
-            }
             PreparedStatement ps = connection.prepareStatement(CREATE_LETTERS);
-            ps.setString(1, owner);
-            ps.setString(2, receiver);
-            ps.setString(3, owner);
-            ps.setString(4, "OOUGOING");
-            ps.setString(5, theme);
-            ps.setString(6, text);
-            ps.execute();
-            ps.setString(1, receiver);
-            ps.setString(2, receiver);
-            ps.setString(3, owner);
-            ps.setString(4, "INCOMIG");
-            ps.setString(5, theme);
-            ps.setString(6, text);
-            ps.execute();
+            for (int i = 0; i < receiver.length; i++){
+                if (mailUserService.findByUsername(receiver[i]).isEmpty()) {
+                    throw new MailUserNotExistException(receiver[i]);
+                }
+//                create letter to us
+                ps.setString(1, owner);
+                ps.setString(2, receiver[i]);
+                ps.setString(3, owner);
+                ps.setString(4, "OOUGOING");
+                ps.setString(5, theme);
+                ps.setString(6, text);
+                ps.execute();
+//                send copy to companion
+                ps.setString(1, receiver[i]);
+                ps.setString(2, receiver[i]);
+                ps.setString(3, owner);
+                ps.setString(4, "INCOMIG");
+                ps.setString(5, theme);
+                ps.setString(6, text);
+                ps.execute();
+            }
             ps.close();
             connection.close();
         } catch (SQLException e) {
