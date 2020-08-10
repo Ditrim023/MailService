@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PageController {
     private static final String MAILS = "mails";
-    private MailService mailService = new MailServiceImpl();
+    private MailService mailService;
+
+    public PageController(MailService mailService) {
+        this.mailService = mailService;
+    }
 
     @GetMapping("/")
     public String index() {

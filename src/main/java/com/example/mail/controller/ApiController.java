@@ -14,8 +14,13 @@ import java.util.List;
 
 @RestController
 public class ApiController {
-    private MailService mailService = new MailServiceImpl();
-    private MailUserService mailUserService = new MailUserServiceImpl();
+    private MailService mailService;
+    private MailUserService mailUserService;
+
+    public ApiController(MailService mailService, MailUserService mailUserService) {
+        this.mailService = mailService;
+        this.mailUserService = mailUserService;
+    }
 
     @GetMapping("/api/mails")
     public List<Mail> getAllMail() {

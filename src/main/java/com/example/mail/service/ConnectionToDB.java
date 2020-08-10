@@ -16,7 +16,6 @@ import java.util.Properties;
 @Configuration
 public class ConnectionToDB {
     private static final String DB_FILE = "application.properties";
-    private static final String DB_DRIVER = "db.driver";
     private static final String DB_CONNECTION = "db.url";
     private static final String DB_USER = "db.user";
     private static final String DB_PASSWORD = "db.password";
@@ -26,13 +25,12 @@ public class ConnectionToDB {
         Connection dbConnection;
         Properties properties = readProp();
         try {
-            Class.forName(properties.getProperty(DB_DRIVER));
             dbConnection = DriverManager.getConnection(
                     properties.getProperty(DB_CONNECTION),
                     properties.getProperty(DB_USER),
                     properties.getProperty(DB_PASSWORD));
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new ConnectionNotCreatedException();
+        } catch (SQLException e) {
+            throw new ConnectionNotCreatedException(e);
         }
         return dbConnection;
     }

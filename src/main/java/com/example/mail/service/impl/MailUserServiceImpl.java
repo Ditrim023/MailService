@@ -28,7 +28,7 @@ public class MailUserServiceImpl implements MailUserService {
     @Override
     public String getRole(String username) {
         Connection connection = ConnectionToDB.getDBConnection();
-        String result = null;
+        String result;
         try {
             PreparedStatement ps = connection.prepareStatement(GET_ROLE);
             ps.setString(1, username);
@@ -42,7 +42,7 @@ public class MailUserServiceImpl implements MailUserService {
             ps.close();
             connection.close();
         } catch (SQLException e) {
-            throw new QueryNotExecuteException();
+            throw new QueryNotExecuteException(e);
         }
         return result;
     }
@@ -62,7 +62,7 @@ public class MailUserServiceImpl implements MailUserService {
             ps.close();
             connection.close();
         } catch (SQLException e) {
-            throw new QueryNotExecuteException();
+            throw new QueryNotExecuteException(e);
         }
 
     }
@@ -84,11 +84,10 @@ public class MailUserServiceImpl implements MailUserService {
             ps.close();
             connection.close();
         } catch (SQLException e) {
-            throw new QueryNotExecuteException();
+            throw new QueryNotExecuteException(e);
         }
         return Optional.of(mailUser);
     }
-
 
     @Override
     public List<MailUser> getAllUsers() {
@@ -104,7 +103,7 @@ public class MailUserServiceImpl implements MailUserService {
             ps.close();
             connection.close();
         } catch (SQLException e) {
-            e.getMessage();
+            throw new QueryNotExecuteException(e);
         }
         return userList;
     }
@@ -117,5 +116,4 @@ public class MailUserServiceImpl implements MailUserService {
         mailUser.setRole(rs.getString("user_role"));
         return mailUser;
     }
-
 }

@@ -4,9 +4,10 @@ import com.example.mail.entity.Mail;
 import com.example.mail.exeption.MailNotExistException;
 import com.example.mail.exeption.MailUserNotExistException;
 import com.example.mail.exeption.QueryNotExecuteException;
-import com.example.mail.service.MailUserService;
 import com.example.mail.service.ConnectionToDB;
 import com.example.mail.service.MailService;
+import com.example.mail.service.MailUserService;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,14 +17,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class MailServiceImpl implements MailService {
-    private MailUserService mailUserService = new MailUserServiceImpl();
+    private MailUserService mailUserService;
     private static final String GET_ALL_MAIL = "SELECT * FROM MAIL ORDER BY DATE_CREATE DESC limit 20";
     private static final String GET_MAIL = "SELECT * FROM MAIL WHERE MAIL_ID = ?";
     private static final String GET_ALL_MAIL_BY_OWNER = "SELECT * FROM MAIL where owner = ? ORDER BY DATE_CREATE DESC limit 20";
     private static final String DELETE_MAIL_BY_ID = "DELETE FROM MAIL where MAIL_ID = ?";
     private static final String CREATE_LETTERS = "insert into mail (owner,receiver, author,mail_type , theme, date_create,text) values (?,?,?,?,?,CURRENT_TIMESTAMP,?)";
     private static final String SEARCH = "select * from mail where owner = ? and (receiver LIKE ? or author LIKE ? or theme LIKE ? or text LIKE ?);";
+
+    public MailServiceImpl(MailUserService mailUserService) {
+        this.mailUserService = mailUserService;
+    }
 
     @Override
     public List<Mail> getSearchMail(String owner, String search) {
@@ -45,7 +51,7 @@ public class MailServiceImpl implements MailService {
             ps.close();
             connection.close();
         } catch (SQLException e) {
-            throw new QueryNotExecuteException();
+            throw new QueryNotExecuteException(e);
         }
         return mailList;
     }
@@ -67,7 +73,7 @@ public class MailServiceImpl implements MailService {
             ps.close();
             connection.close();
         } catch (SQLException e) {
-            throw new QueryNotExecuteException();
+            throw new QueryNotExecuteException(e);
         }
         return mail;
     }
@@ -102,7 +108,7 @@ public class MailServiceImpl implements MailService {
             ps.close();
             connection.close();
         } catch (SQLException e) {
-            throw new QueryNotExecuteException();
+            throw new QueryNotExecuteException(e);
         }
     }
 
@@ -120,7 +126,7 @@ public class MailServiceImpl implements MailService {
             ps.close();
             connection.close();
         } catch (SQLException e) {
-            throw new QueryNotExecuteException();
+            throw new QueryNotExecuteException(e);
         }
         return mailList;
     }
@@ -139,7 +145,7 @@ public class MailServiceImpl implements MailService {
             ps.close();
             connection.close();
         } catch (SQLException e) {
-            throw new QueryNotExecuteException();
+            throw new QueryNotExecuteException(e);
         }
         return mailList;
     }
@@ -154,7 +160,7 @@ public class MailServiceImpl implements MailService {
             ps.close();
             connection.close();
         } catch (SQLException e) {
-            throw new QueryNotExecuteException();
+            throw new QueryNotExecuteException(e);
         }
     }
 
